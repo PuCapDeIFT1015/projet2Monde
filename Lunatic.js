@@ -12,23 +12,79 @@ const PROB_REPRODUCTION = 0.1;
 const AGE_MORT_MIN = 10;
 const AGE_MORT_MAX = 110;
 
-var Lunatic = function(x,y){
-    this.x = x;
-    this.y = y;
+var Lunatic = function(i,j){
+    this.i = i;
+    this.j = j;
     this.ageReproduction = AGE_REPRODUCTION;
     this.tauxReproduction = PROB_REPRODUCTION;
     this.ageMort = function () {
         return Math.floor(Math.random() *
-            (Math.floor(AGE_MORT_MAX) - Math.ceil(AGE_MORT_MIN)))
+            (Math.floor(AGE_MORT_MAX+1) - Math.ceil(AGE_MORT_MIN)))
             + Math.ceil(AGE_MORT_MIN);
     };
 
 }
 
-//Test: Ce constructeur fonctionne: var lunatic = new Lunatic(4, 4);
+Lunatic.prototype.deplacement = function(grille) {
+    // On connait avec this.x et this.y la position du luatic dans la grille des parametres
+    // On veut generer un nombre random entre 0 et 3 qui sera switch pour la prochaine position
+    // Si un obstacle se trouve a la position ou doit aller le lunatic
+    //      prendre le case suivant
+    // finalement: modifier la position du lunatic
+    var positionInitiale = [this.i,this.j];
+    var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
+    switch (nbreAleatoire){
+        case 0:// aller en bas
+            //verifier si cette place est libre 
+            if (grille[this.i][this.j + 1] !== '|'
+                || grille[this.i][this.j + 1] !== 'B'
+                || grille[this.i][this.j + 1] !== '<'
+                || grille[this.i][this.j + 1] !== '>'
+                || grille[this.i][this.j + 1] !== '^'
+                || grille[this.i][this.j + 1] !== 'v'
+            ) {
+                this.j = this.j + 1;
+                break;
+            }
+            
+        case 1:// aller en haut
+            //verifier si cette place est libre
+                if (grille[this.i][this.j -1] !== '|'
+                || grille[this.i][this.j -1] !== 'B'
+                || grille[this.i][this.j -1] !== '<'
+                || grille[this.i][this.j -1] !== '>'
+                || grille[this.i][this.j -1] !== '^'
+                || grille[this.i][this.j -1] !== 'v'
+            ) {
+                this.j = this.j - 1;
+                break;
+                }
+        case 2:// aller a droite
+            //verifier si cette place est libre
+                if (grille[this.i +1][this.j] !== '|'
+                || grille[this.i +1][this.j] !== 'B'
+                || grille[this.i +1][this.j] !== '<'
+                || grille[this.i +1][this.j] !== '>'
+                || grille[this.i +1][this.j] !== '^'
+                || grille[this.i +1][this.j] !== 'v'
+            ) {
+                this.i = this.i + 1;
+                break;
+                }
+        case 3: // aller a gauche
+            //verifier si cette place est libre
+            if (grille[this.i -1][this.j] !== '|'
+                || grille[this.i -1][this.j] !== 'B'
+                || grille[this.i -1][this.j] !== '<'
+                || grille[this.i -1][this.j] !== '>'
+                || grille[this.i -1][this.j] !== '^'
+                || grille[this.i -1][this.j] !== 'v'
+            ) {
+                this.i = this.i - 1;
+                break;
+            }
+        default:
+            break;
+    }
+}
 
-//print(lunatic.ageMort());
-
-// pour deplacement aleatoire: faire un switch case dans lequel il y aura des valeurs de 0-3, donc si 0: gauche, si...... 4: haut.
-//Et: si personnage deja present dans une des cases, il ne peut se deplacer a cette case, on recommence.
-//fn deplacement: parametre est la grille. Premiere etape on regartde pos initiale x,y.

@@ -6,9 +6,9 @@
  * 
  ********************************************************************************/
 
-var Straight = function (x, y) {
-    this.x = x;
-    this.y = y;
+var Straight = function (i, j) {
+    this.i = i;
+    this.j = j;
     this.ageReproduction = AGE_REPRODUCTION;//25
     this.tauxReproduction = PROB_REPRODUCTION;//0.2
     this.ageMort = function () {

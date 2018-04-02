@@ -7,9 +7,9 @@
  ********************************************************************************/
 
 
-var Bad = function (x, y) {
-    this.x = x;
-    this.y = y;
+var Bad = function (i, j) {
+    this.i = x;
+    this.j = y;
     this.voisinage = 5;
     this.ageMort = function () {
         return Math.floor(Math.random() *
