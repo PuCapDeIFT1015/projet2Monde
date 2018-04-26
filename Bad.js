@@ -2,15 +2,25 @@
  *
  * Classe Bad
  * 2018-03-28
- * Description:
+ * Description: Personnage unique, pas de reproduction, doit trouver, traquer,
+ * et éliminer tous les autres personnages.
  *
  ********************************************************************************/
 
-
+/**
+ * Constructeur par paramètres
+ * @param {Number} i coordonnée verticale
+ * @param {Number} j coordonnée horizontale
+ * 
+ */
 var Bad = function (i, j) {
     this.i = i;
     this.j = j;
     this.vision = 5;
+    /**
+     * Calcul de l'âge de mort
+     * @returns nombre aléatoire entier entre AGE_MORT_MIN et AGE_MORT_MAX
+     */
     this.ageMort = function () {
         return Math.floor(Math.random() *
             (Math.floor(AGE_MORT_MAX) - Math.ceil(AGE_MORT_MIN)))//30-80
@@ -19,13 +29,10 @@ var Bad = function (i, j) {
 
 };
 
-//Pour les deplacements, il va regarder dans toutes les directions d'une unité.
-//S'Il y a un personnage, il va dans cette direction et néglige les autres directions.
-/* Dans le case, il nous faut des variables temporaires qui vont sauvegarder le nouveau i et j
-et seront remplacés à la fin du case.
-
-Detecter en cercle pour scanner les gens a attraper. Rayon max = vision*/
-
+/**
+ * Calcul déplacement aléatoire: S'il n'y a pas d'ennemis dans la vision.
+ * @param {array2D} grille
+ */
 Bad.prototype.deplacementAleatoire = function(grille) {
   var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
   //Deplacement aleatoire avant qu'il ne détecte des ennemis.
@@ -68,6 +75,11 @@ Bad.prototype.deplacementAleatoire = function(grille) {
   }
 }
 
+/**
+ * Calcul trouver ennemi: Regarder dans toutes les directions d'une unité. 
+ * S'il y a un personnage, il va dans cette direction et néglige les autres directions.
+ * @param {array2D} grille
+ */
 Bad.prototype.deplacer = function(grille){
   // TODO: update du b dans l\interface
   var positionInitiale = [this.i,this.j];

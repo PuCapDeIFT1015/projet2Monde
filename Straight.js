@@ -2,16 +2,37 @@
  *
  * Classe Straight
  * 2018-03-28
- * Description:
+ * Description: Personnage qui se déplace seulement en une direction, 
+ * qui est initialement sélectionnée aléatoirement.
  *
  ********************************************************************************/
 
+/**
+ * Constructeur par paramètres
+ * @param {Number} i coordonnée verticale
+ * @param {Number} j coordonnée horizontale
+ * 
+ */
 var Straight = function (i, j) {
     this.i = i;
     this.j = j;
     this.ageReproduction = AGE_REPRODUCTION;//25
     this.tauxReproduction = PROB_REPRODUCTION;//0.2
-    this.vecteurDeplacement = initierDeplacement();
+    
+    /**
+     * Calcule valeur entière aléatoire pour initier le mouvement.
+     * @returns nombre aléatoire entier entre 0 et 3.
+     */
+    this.vecteurDeplacement = function(){
+
+        var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
+        return nbreAleatoire;
+    };
+
+    /**
+     * Calcul de l'âge de mort
+     * @returns nombre aléatoire entier entre AGE_MORT_MIN et AGE_MORT_MAX
+     */
     this.ageMort = function () {
         return Math.floor(Math.random() *
             (Math.floor(AGE_MORT_MAX) - Math.ceil(AGE_MORT_MIN)))//20-100
@@ -20,13 +41,10 @@ var Straight = function (i, j) {
 
 };
 
-Straight.prototype.initierDeplacement = function(){
-
-    var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
-    return nbreAleatoire;
-}
-
-
+/**
+ * Calcul déplacement
+ * @param {Number} vecteurDeplacement
+ */
 Straight.prototype.deplacement = function(vecteurDeplacement){
 
   switch (vecteurDeplacement){

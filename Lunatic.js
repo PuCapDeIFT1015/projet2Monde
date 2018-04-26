@@ -2,7 +2,7 @@
  *
  * Classe Lunatic
  * 2018-03-28
- * Description:
+ * Description: personnage qui se déplace aléatoirement, de haut, bas, gauche ou droite.
  *
  ********************************************************************************/
 
@@ -12,11 +12,22 @@ const PROB_REPRODUCTION = 0.1;
 const AGE_MORT_MIN = 10;
 const AGE_MORT_MAX = 110;
 
+/**
+ * Constructeur par paramètres
+ * @param {Number} i coordonnée verticale
+ * @param {Number} j coordonnée horizontale
+ * 
+ */
 var Lunatic = function(i,j){
     this.i = i;
     this.j = j;
     this.ageReproduction = AGE_REPRODUCTION;
     this.tauxReproduction = PROB_REPRODUCTION;
+    
+    /**
+     * Calcul de l'âge de mort
+     * @returns nombre aléatoire entier entre AGE_MORT_MIN et AGE_MORT_MAX
+     */
     this.ageMort = function () {
         return Math.floor(Math.random() *
             (Math.floor(AGE_MORT_MAX+1) - Math.ceil(AGE_MORT_MIN)))
@@ -25,12 +36,12 @@ var Lunatic = function(i,j){
 
 }
 
+/**
+ * Calcul déplacement
+ * @param {array2D} grille
+ */
 Lunatic.prototype.deplacement = function(grille) {
-    // On connait avec this.x et this.y la position du luatic dans la grille des parametres
-    // On veut generer un nombre random entre 0 et 3 qui sera switch pour la prochaine position
-    // Si un obstacle se trouve a la position ou doit aller le lunatic
-    //      prendre le case suivant
-    // finalement: modifier la position du lunatic
+ 
     var positionInitiale = [this.i,this.j];
     var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
     switch (nbreAleatoire){
