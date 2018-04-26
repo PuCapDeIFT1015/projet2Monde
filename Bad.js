@@ -6,7 +6,8 @@
  * et éliminer tous les autres personnages.
  *
  ********************************************************************************/
-
+const AGE_MORT_MIN = 30;
+const AGE_MORT_MAX = 80;
 /**
  * Constructeur par paramètres
  * @param {Number} i coordonnée verticale
@@ -23,7 +24,7 @@ var Bad = function (i, j) {
      */
     this.ageMort = function () {
         return Math.floor(Math.random() *
-            (Math.floor(AGE_MORT_MAX) - Math.ceil(AGE_MORT_MIN)))//30-80
+            (Math.floor(AGE_MORT_MAX) - Math.ceil(AGE_MORT_MIN)))
             + Math.ceil(AGE_MORT_MIN);
     };
 
