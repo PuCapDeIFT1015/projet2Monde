@@ -1,9 +1,9 @@
-﻿/********************************************************************************
- * 
+/********************************************************************************
+ *
  * Classe Lunatic
  * 2018-03-28
  * Description:
- * 
+ *
  ********************************************************************************/
 
 const AGE_REPRODUCTION = 18;
@@ -35,18 +35,22 @@ Lunatic.prototype.deplacement = function(grille) {
     var nbreAleatoire = Math.floor(Math.random() * (Math.floor(4) - Math.ceil(0))) + Math.ceil(0);
     switch (nbreAleatoire){
         case 0:// aller en bas
-            //verifier si cette place est libre 
+            //verifier si cette place est libre
             if (grille[this.i][this.j + 1] !== '|'
                 || grille[this.i][this.j + 1] !== 'B'
                 || grille[this.i][this.j + 1] !== '<'
                 || grille[this.i][this.j + 1] !== '>'
                 || grille[this.i][this.j + 1] !== '^'
                 || grille[this.i][this.j + 1] !== 'v'
+                || grille[this.i][this.j + 1] !== 'L'
             ) {
                 this.j = this.j + 1;
+                grille[this.i][this.j] = 'L';
+                grille[this.i][this.j-1] = ' ';
+
                 break;
             }
-            
+
         case 1:// aller en haut
             //verifier si cette place est libre
                 if (grille[this.i][this.j -1] !== '|'
@@ -55,8 +59,11 @@ Lunatic.prototype.deplacement = function(grille) {
                 || grille[this.i][this.j -1] !== '>'
                 || grille[this.i][this.j -1] !== '^'
                 || grille[this.i][this.j -1] !== 'v'
+                || grille[this.i][this.j -1] !== 'L'
             ) {
                 this.j = this.j - 1;
+                grille[this.i][this.j] = 'L';
+                grille[this.i][this.j+1] = ' ';
                 break;
                 }
         case 2:// aller a droite
@@ -67,8 +74,11 @@ Lunatic.prototype.deplacement = function(grille) {
                 || grille[this.i +1][this.j] !== '>'
                 || grille[this.i +1][this.j] !== '^'
                 || grille[this.i +1][this.j] !== 'v'
+                || grille[this.i +1][this.j] !== 'L'
             ) {
                 this.i = this.i + 1;
+                grille[this.i][this.j] = 'L';
+                grille[this.i-1][this.j] = ' ';
                 break;
                 }
         case 3: // aller a gauche
@@ -79,12 +89,14 @@ Lunatic.prototype.deplacement = function(grille) {
                 || grille[this.i -1][this.j] !== '>'
                 || grille[this.i -1][this.j] !== '^'
                 || grille[this.i -1][this.j] !== 'v'
+                || grille[this.i -1][this.j] !== 'L'
             ) {
                 this.i = this.i - 1;
+                grille[this.i][this.j] = 'L';
+                grille[this.i+1][this.j] = ' ';
                 break;
             }
         default:
             break;
     }
-}
-
+};
